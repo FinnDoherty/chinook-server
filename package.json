@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "sqlite3": "^5.0.2"
+  },
+  "name": "chinook-server",
+  "version": "1.0.0",
+  "description": "a practice project to set up a node server with a REST API and sql access",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Finn Doherty",
+  "license": "SEE LICENSE IN LICENSE"
+}
