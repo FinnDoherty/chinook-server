@@ -19,13 +19,12 @@ to run the server `npm start`
 and navigate to localhost:3000 in a browser
 
 ### Endpoints
-  READ endpoints
-  TODO          /artists
-  TODO          /artists/:id
-  TODO          /albums
-  TODO          /albums/:id
-  TODO          /tracks
-  TODO          /tracks/:id
-
-  /playlists - a list of all the saved playlists, and number of tracks on each
-  /playlists/:id - playlist info, name, number of tracks, list of tracks with names, albums and artists
+  #### READ endpoints
+  - TODO          /artists
+  - TODO          /artists/:id
+  - TODO          /albums
+  - TODO          /albums/:id
+  - TODO          /tracks
+  - TODO          /tracks/:id
+  - /playlists - a list of all the saved playlists, and number of tracks on each
+  - /playlists/:id - playlist info, name, number of tracks, list of tracks with names, albums and artists
