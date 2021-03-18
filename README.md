@@ -22,8 +22,8 @@ and navigate to localhost:3000 in a browser
   #### READ endpoints
   - TODO          /artists
   - TODO          /artists/:id
-  - TODO          /albums
-  - TODO          /albums/:id
+  - /albums - a list of all the available Albums, their Artist and number of tracks on each
+  - /albums/:id - album info including details of artist and a list of tracks
   - TODO          /tracks
   - TODO          /tracks/:id
   - /playlists - a list of all the saved playlists, and number of tracks on each

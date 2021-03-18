@@ -28,7 +28,13 @@ function main() {
   })
 
   app.get('/albums', (req, res) => {
-    dao.all('SELECT * from Album')
+    dao.all(`
+      SELECT alb.AlbumId, alb.Title, alb.ArtistId, art.Name as 'Artist', COUNT(t.TrackId) as 'NumberOfTracks'
+      FROM Album alb
+      LEFT JOIN Artist art ON art.ArtistId = alb.ArtistId
+      LEFT JOIN Track t ON t.AlbumId = alb.AlbumId
+      GROUP BY t.AlbumId;
+    `)
     .then((data) => {
       res.send(data);
     })
@@ -36,9 +42,26 @@ function main() {
 
   app.get('/albums/:id', (req, res) => {
     const { id } = req.params;
-    dao.all(`SELECT * from Album WHERE AlbumId = ${id}`)
+    dao.all(`
+      SELECT alb.Title, alb.ArtistId, art.Name as 'Artist', t.TrackId, t.Name as 'Track',
+          COUNT(t.TrackId) OVER (PARTITION BY t.AlbumId) AS NumberOfTracks
+      FROM Album alb
+      LEFT JOIN Artist art ON art.ArtistId = alb.ArtistId
+      LEFT JOIN Track t ON t.AlbumId = alb.AlbumId
+      WHERE alb.AlbumId = ${id};
+    `)
     .then((data) => {
-      res.send(data);
+      var albumName = data[0].Title;
+      var artistName = data[0].Artist;
+      var numberOfTracks = data[0].NumberOfTracks;
+      var tracks = numberOfTracks > 0 ? data : [];
+
+      res.send({
+        albumName: albumName,
+        artistName: artistName,
+        numberOfTracks: numberOfTracks,
+        tracks: tracks
+      });
     })
   })
 
