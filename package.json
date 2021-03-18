@@ -9,8 +9,19 @@
   "description": "a practice project to set up a node server with a REST API and sql access",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "devstart": "nodemon index.js"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "chinook-db-creation/*",
+      "database.sqlite3"
+    ],
+    "delay": "2500"
   },
   "author": "Finn Doherty",
-  "license": "SEE LICENSE IN LICENSE"
+  "license": "SEE LICENSE IN LICENSE",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
