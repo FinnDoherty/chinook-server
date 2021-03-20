@@ -126,7 +126,19 @@ function main() {
   })
 
   app.get('/tracks', (req, res) => {
-    dao.all('SELECT * from Track')
+    dao.all(`
+      SELECT
+          t.TrackId,
+          t.Name as 'Track',
+          t.AlbumId,
+          alb.Title as 'Album',
+          alb.ArtistId,
+          art.Name as 'Artist',
+          substr(datetime(t.Milliseconds/1000,'unixepoch'),-8) as 'Duration'
+      FROM Track t
+      LEFT JOIN Album alb ON alb.AlbumId = t.AlbumId
+      LEFT JOIN Artist art ON art.ArtistId = alb.ArtistId;
+    `)
     .then((data) => {
       res.send(data);
     })
@@ -134,7 +146,23 @@ function main() {
 
   app.get('/tracks/:id', (req, res) => {
     const { id } = req.params;
-    dao.all(`SELECT * from Track WHERE TrackId = ${id}`)
+    dao.all(`
+      SELECT
+          t.TrackId,
+          t.Name as 'Track',
+          t.AlbumId,
+          alb.Title as 'Album',
+          alb.ArtistId,
+          art.Name as 'Artist',
+          substr(datetime(t.Milliseconds/1000,'unixepoch'),-8) as 'Duration',
+          json_group_object(p.PlaylistId, p.Name) as 'Playlists'
+      FROM Track t
+      LEFT JOIN Album alb ON alb.AlbumId = t.AlbumId
+      LEFT JOIN Artist art ON art.ArtistId = alb.ArtistId
+      LEFT JOIN PlaylistTrack pt ON pt.TrackId = t.TrackId
+      LEFT JOIN Playlist p ON p.PlaylistId = pt.PlaylistId
+      WHERE t.TrackId = ${id};
+    `)
     .then((data) => {
       res.send(data);
     })

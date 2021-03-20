@@ -24,7 +24,7 @@ and navigate to localhost:3000 in a browser
   - /artists/:id - artist info including a list of albums and the number of tracks on each one
   - /albums - a list of all the available Albums, their Artist and number of tracks on each
   - /albums/:id - album info including details of artist and a list of tracks
-  - TODO          /tracks
-  - TODO          /tracks/:id
+  - /tracks - lists all the tracks
+  - /tracks/:id - track info with artist, album and duration info, and which playlists it is part of
   - /playlists - a list of all the saved playlists, and number of tracks on each
   - /playlists/:id - playlist info, name, number of tracks, list of tracks with names, albums and artists
